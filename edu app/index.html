@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="EduReyting">
+<link rel="manifest" href="manifest.json">
+<title>EduReyting — O'zbekiston</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════ SPLASH ═══════ -->
+<div id="splash" class="splash">
+  <div class="splash-inner">
+    <div class="splash-logo">🎓</div>
+    <h1 class="splash-title">EduReyting</h1>
+    <p class="splash-sub">O'zbekiston Maktab Olimpiadasi</p>
+    <div class="splash-bar-wrap"><div class="splash-bar"></div></div>
+    <p class="splash-author">Yaratuvchi: Abdug'aniyev Asilbek</p>
+  </div>
+</div>
+
+<!-- ═══════ APP ═══════ -->
+<div id="app" class="app hidden">
+
+  <!-- BOTTOM NAV -->
+  <nav class="navbar">
+    <button class="nav-tab active" data-tab="home" onclick="switchTab('home')">
+      <span class="nav-ic">🏠</span><span class="nav-lb">Bosh</span>
+    </button>
+    <button class="nav-tab" data-tab="test" onclick="switchTab('test')">
+      <span class="nav-ic">📝</span><span class="nav-lb">Test</span>
+    </button>
+    <button class="nav-tab" data-tab="rating" onclick="switchTab('rating')">
+      <span class="nav-ic">🏆</span><span class="nav-lb">Reyting</span>
+    </button>
+    <button class="nav-tab" data-tab="chat" onclick="switchTab('chat')">
+      <span class="nav-ic">💬</span><span class="nav-lb">Chat</span>
+      <span class="nbadge hidden" id="chat-badge"></span>
+    </button>
+    <button class="nav-tab" data-tab="profile" onclick="switchTab('profile')">
+      <span class="nav-ic">👤</span><span class="nav-lb">Profil</span>
+    </button>
+  </nav>
+
+  <main class="main">
+
+    <!-- ══════════════════════════════
+         HOME
+    ══════════════════════════════ -->
+    <div class="page active" id="page-home">
+      <div class="home-header">
+        <div class="hh-bg"></div>
+        <div class="hh-content">
+          <p class="hh-greet" id="hh-greet">Xush kelibsiz!</p>
+          <h2 class="hh-name" id="hh-name">O'quvchi</h2>
+          <p class="hh-school" id="hh-school">Kirish uchun Profil bo'limiga o'ting</p>
+        </div>
+        <div class="hh-ava" id="hh-ava">🧑‍🎓</div>
+      </div>
+
+      <div class="stats4">
+        <div class="s4c"><div class="s4i">⭐</div><div class="s4v" id="st-score">0</div><div class="s4l">Ball</div></div>
+        <div class="s4c"><div class="s4i">🏅</div><div class="s4v" id="st-rank">—</div><div class="s4l">O'rin</div></div>
+        <div class="s4c"><div class="s4i">📋</div><div class="s4v" id="st-tests">0</div><div class="s4l">Test</div></div>
+        <div class="s4c"><div class="s4i">🏫</div><div class="s4v" id="st-srank">—</div><div class="s4l">Maktab</div></div>
+      </div>
+
+      <div class="sec-title">⚡ Tezkor harakatlar</div>
+      <div class="qactions">
+        <button class="qa qa-blue" onclick="switchTab('test')"><span class="qa-i">📝</span><span class="qa-t">Test boshlash</span><span class="qa-a">→</span></button>
+        <button class="qa qa-gold" onclick="switchTab('rating')"><span class="qa-i">🏆</span><span class="qa-t">Reytingni ko'rish</span><span class="qa-a">→</span></button>
+        <button class="qa qa-green" onclick="switchTab('chat')"><span class="qa-i">💬</span><span class="qa-t">Guruh chati</span><span class="qa-a">→</span></button>
+      </div>
+
+      <div class="sec-title">🥇 Bugungi Top 3</div>
+      <div id="home-top3" class="top3wrap"><div class="ldots"><span></span><span></span><span></span></div></div>
+
+      <div class="sec-title">📢 Yangiliklar</div>
+      <div class="newscard">
+        <div class="news-badge">🆕 Yangi</div>
+        <div class="news-ttl">5–11 sinf Olimpiadasi 2026 boshlandi!</div>
+        <div class="news-body">Sinfingizga mos fanlardan testlar topshiring, maktabingiz reytingini oshiring va sertifikat qozonib oling. Yaratuvchi: <b>Abdug'aniyev Asilbek</b></div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TEST
+    ══════════════════════════════ -->
+    <div class="page" id="page-test">
+
+      <!-- Fan tanlash -->
+      <div id="tv-select">
+        <div class="ptop">
+          <h2 class="ptitle">📚 Fanlarni tanlang</h2>
+          <p class="psub">Sinfingizga mos 2 ta fan tanlang</p>
+        </div>
+        <div class="subj-grid" id="subj-grid"></div>
+        <div class="pick-hint">Tanlangan: <strong id="pick-cnt">0</strong> / 2</div>
+        <button class="btnmain" id="btn-begin" disabled onclick="beginTest()">Testni boshlash →</button>
+      </div>
+
+      <!-- Test jarayoni -->
+      <div id="tv-play" class="hidden">
+        <div class="tbar">
+          <div class="tbar-fan" id="tb-fan">📝 Fan 1/2</div>
+          <div class="tbar-timer" id="tb-timer">⏱ 0:00</div>
+          <div class="tbar-pts" id="tb-pts">0 ball</div>
+        </div>
+        <div class="tprog-wrap"><div class="tprog-fill" id="t-prog"></div></div>
+        <div class="tdots" id="t-dots"></div>
+        <div class="tcard">
+          <div class="qlabel" id="t-label">Savol 1/10</div>
+          <div class="qtext" id="t-qtext">...</div>
+          <div class="qopts" id="t-opts"></div>
+          <div class="qfb hidden" id="t-fb"></div>
+        </div>
+        <div class="tnav">
+          <button class="btnmain hidden" id="btn-next" onclick="nextQ()">Keyingisi →</button>
+        </div>
+      </div>
+
+      <!-- Oraliq -->
+      <div id="tv-mid" class="hidden">
+        <div class="midcard">
+          <div class="mid-emo">✅</div>
+          <h3 class="mid-ttl" id="mid-ttl">Fan yakunlandi</h3>
+          <div class="mid-sc" id="mid-sc">0/10</div>
+          <p class="mid-msg" id="mid-msg"></p>
+          <button class="btnmain" onclick="continueTest()">Ikkinchi fanga →</button>
+        </div>
+      </div>
+
+      <!-- Natija -->
+      <div id="tv-result" class="hidden">
+        <div class="rescard">
+          <div class="res-emo" id="res-emo">🏆</div>
+          <h2 class="res-ttl" id="res-ttl">Barakalla!</h2>
+          <div class="res-sc" id="res-sc">0/20</div>
+          <p class="res-sub" id="res-sub"></p>
+          <div class="resgrid">
+            <div class="rgbox"><div class="rgn" id="rg-s1">0</div><div class="rgl" id="rg-l1">Fan 1</div></div>
+            <div class="rgbox"><div class="rgn" id="rg-s2">0</div><div class="rgl" id="rg-l2">Fan 2</div></div>
+            <div class="rgbox"><div class="rgn" id="rg-pct">0%</div><div class="rgl">Foiz</div></div>
+            <div class="rgbox"><div class="rgn" id="rg-time">0:00</div><div class="rgl">Vaqt</div></div>
+          </div>
+          <button class="btncert hidden" id="btn-cert" onclick="openCert()">🎖️ Sertifikat olish</button>
+          <button class="btnout" onclick="resetTest()">🔄 Qayta urinish</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         RATING
+    ══════════════════════════════ -->
+    <div class="page" id="page-rating">
+      <div class="ptop"><h2 class="ptitle">🏆 Reyting</h2></div>
+      <div class="rtabs">
+        <button class="rtab active" data-rt="uzbekistan" onclick="switchRating('uzbekistan')">🇺🇿 O'zbekiston</button>
+        <button class="rtab" data-rt="school" onclick="switchRating('school')">🏫 Maktabim</button>
+        <button class="rtab" data-rt="schools" onclick="switchRating('schools')">📊 Maktablar</button>
+      </div>
+      <div id="rlist" class="rlist"><div class="ldots"><span></span><span></span><span></span></div></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         CHAT
+    ══════════════════════════════ -->
+    <div class="page" id="page-chat">
+      <div class="chat-hdr">
+        <div class="crooms">
+          <button class="croom active" data-room="general" onclick="switchRoom('general')">🌐 Umumiy</button>
+          <button class="croom" data-room="school" onclick="switchRoom('school')">🏫 Maktab</button>
+          <button class="croom" data-room="math" onclick="switchRoom('math')">📐 Matematika</button>
+          <button class="croom" data-room="eng" onclick="switchRoom('eng')">🇬🇧 Ingliz</button>
+          <button class="croom" data-room="science" onclick="switchRoom('science')">🔬 Fanlar</button>
+        </div>
+      </div>
+      <div class="chat-msgs" id="chat-msgs"></div>
+      <div class="chat-inp-row">
+        <input class="chat-inp" id="chat-inp" type="text" placeholder="Xabar yozing..." maxlength="300"
+          onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="chat-send" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         PROFILE
+    ══════════════════════════════ -->
+    <div class="page" id="page-profile">
+      <div class="prof-hdr">
+        <div class="prof-ava" id="prof-ava">👤</div>
+        <h2 class="prof-nm" id="prof-nm">—</h2>
+        <div class="prof-sch" id="prof-sch">—</div>
+        <div class="prof-bdg" id="prof-bdg"></div>
+      </div>
+
+      <!-- AUTH PANEL -->
+      <div id="auth-panel">
+        <div class="atabs">
+          <button class="atab active" data-mode="login" onclick="switchAuth('login')">Kirish</button>
+          <button class="atab" data-mode="register" onclick="switchAuth('register')">Ro'yxatdan o'tish</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="auth-login" class="aform">
+          <div class="field"><label>📧 Email</label>
+            <input id="l-email" type="email" placeholder="email@manzil.com"></div>
+          <div class="field"><label>🔒 Parol</label>
+            <input id="l-pass" type="password" placeholder="Parolingiz"></div>
+          <button class="btnmain" onclick="doLogin()">Kirish →</button>
+          <button class="btntxt" onclick="doForgot()">🔑 Parolni unutdingizmi?</button>
+          <div class="aerr hidden" id="l-err"></div>
+        </div>
+
+        <!-- REGISTER -->
+        <div id="auth-register" class="aform hidden">
+          <div class="field"><label>👤 To'liq ism</label>
+            <input id="r-name" type="text" placeholder="Alisher Karimov" maxlength="40"></div>
+          <div class="field"><label>📧 Email</label>
+            <input id="r-email" type="email" placeholder="email@manzil.com"></div>
+          <div class="field"><label>🔒 Parol (kamida 6 belgi)</label>
+            <input id="r-pass" type="password" placeholder="Parol yarating"></div>
+          <div class="field"><label>🎓 Sinf raqami</label>
+            <select id="r-grade" onchange="buildSubjectGrid()">
+              <option value="">Sinf tanlang...</option>
+              <option value="5">5-sinf</option><option value="6">6-sinf</option>
+              <option value="7">7-sinf</option><option value="8">8-sinf</option>
+              <option value="9">9-sinf</option><option value="10">10-sinf</option>
+              <option value="11">11-sinf</option>
+            </select></div>
+          <div class="field"><label>🏷️ Sinf harfi</label>
+            <input id="r-cls" type="text" placeholder="A, B, V..." maxlength="4"></div>
+          <div class="field"><label>🗺️ Viloyat / Shahar</label>
+            <select id="r-region" onchange="onRegionChange()">
+              <option value="">Tanlang...</option>
+            </select></div>
+          <div class="field"><label>📍 Tuman / Shahar</label>
+            <select id="r-district" disabled onchange="onDistrictChange()">
+              <option value="">Avval viloyat tanlang...</option>
+            </select></div>
+          <div class="field"><label>🏫 Maktab</label>
+            <select id="r-school-sel" disabled onchange="onSchoolChange()">
+              <option value="">Avval tuman tanlang...</option>
+            </select></div>
+          <div class="field hidden" id="r-school-custom-row">
+            <label>✏️ Maktab nomini kiriting</label>
+            <input id="r-school-custom" type="text" placeholder="Maktab nomi" maxlength="80"></div>
+          <button class="btnmain" onclick="doRegister()">Ro'yxatdan o'tish →</button>
+          <div class="aerr hidden" id="r-err"></div>
+        </div>
+      </div>
+
+      <!-- LOGGED PANEL -->
+      <div id="logged-panel" class="hidden">
+        <div class="prof-stats">
+          <div class="ps"><span class="psi">⭐</span><span class="psv" id="ps-score">0</span><span class="psl">Ball</span></div>
+          <div class="ps"><span class="psi">🏅</span><span class="psv" id="ps-rank">—</span><span class="psl">O'rin</span></div>
+          <div class="ps"><span class="psi">📋</span><span class="psv" id="ps-tests">0</span><span class="psl">Test</span></div>
+        </div>
+        <div id="prof-hist"></div>
+        <button class="btnout btn-danger" onclick="doLogout()">🚪 Chiqish</button>
+      </div>
+
+      <!-- ADMIN -->
+      <div id="admin-entry" class="admin-entry">
+        <button class="btntxt" onclick="document.getElementById('admin-code-panel').classList.toggle('hidden')">⚙️ Admin kirish</button>
+        <div id="admin-code-panel" class="hidden">
+          <div class="field" style="margin:12px 0 8px">
+            <input id="adm-code" type="password" placeholder="Admin kodni kiriting">
+          </div>
+          <button class="btnmain" onclick="checkAdmin()" style="margin:0">Kirish</button>
+          <div class="aerr hidden" id="adm-err"></div>
+        </div>
+      </div>
+
+      <!-- ADMIN PANEL -->
+      <div id="admin-panel" class="hidden admin-panel">
+        <div class="adm-title">⚙️ Admin Panel — <span style="font-size:0.8rem;color:var(--muted)">Direktor Paneli</span></div>
+        <div class="adm-stats">
+          <div class="adm-sc"><div class="adm-sv" id="adm-users">0</div><div class="adm-sl">O'quvchilar</div></div>
+          <div class="adm-sc"><div class="adm-sv" id="adm-tests">0</div><div class="adm-sl">Testlar</div></div>
+          <div class="adm-sc"><div class="adm-sv" id="adm-avg">0</div><div class="adm-sl">O'rtacha</div></div>
+          <div class="adm-sc"><div class="adm-sv" id="adm-schools-cnt">0</div><div class="adm-sl">Maktablar</div></div>
+        </div>
+
+        <div class="adm-section">🥇 Top 3 — Sertifikat berish</div>
+        <div id="adm-top3"></div>
+
+        <div class="adm-section">📊 Maktablar reytingi</div>
+        <div class="adm-table-wrap">
+          <table class="adm-table">
+            <thead><tr><th>#</th><th>Maktab</th><th>Tuman</th><th>O'quvchi</th><th>Ball</th></tr></thead>
+            <tbody id="adm-schools"></tbody>
+          </table>
+        </div>
+
+        <button class="btnout" style="margin-top:16px" onclick="closeAdmin()">✕ Chiqish</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CERT MODAL -->
+  <div class="modal-ov hidden" id="cert-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeCert()">✕</button>
+      <canvas id="cert-canvas" width="720" height="520" style="max-width:100%;border-radius:10px;display:block;margin-bottom:12px"></canvas>
+      <button class="btnmain" onclick="dlCert()">⬇️ Yuklab olish</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

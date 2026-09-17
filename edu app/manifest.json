@@ -1,0 +1,13 @@
+{
+  "name": "EduReyting — O'zbekiston Maktab Olimpiadasi",
+  "short_name": "EduReyting",
+  "description": "O'zbekiston maktab olimpiadasi va reyting tizimi. Yaratuvchi: Abdug'aniyev Asilbek",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
